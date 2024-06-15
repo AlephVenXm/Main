@@ -7,18 +7,31 @@ In this playground you can easily test different models to work with images
 For example:
 
 mdl = Sequential([
+
     layers.Rescaling(1./255, input_shape=(RESOLUTION, RESOLUTION, 3,)),
+    
     layers.Conv2D(16, 3, activation="relu", padding="same"),
+    
     layers.MaxPooling2D(),
+    
     layers.Conv2D(32, 3, activation="relu", padding="same"),
+    
     layers.MaxPooling2D(),
+    
     layers.Conv2D(64, 3, activation="relu", padding="same"),
+    
     layers.MaxPooling2D(),
+    
     layers.Conv2D(128, 3, activation="relu", padding="same"),
+    
     layers.MaxPooling2D(),
+    
     layers.Flatten(),
+    
     layers.Dense(128, activation="leaky_relu"),
+    
     layers.Dense(6)
+    
 ])
 
 mdl.compile(
