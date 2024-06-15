@@ -2,7 +2,7 @@
 
 In this playground you can easily test different models to work with images
 
-![Test](https://github.com/AlephVenXm/Main/blob/image.jpg?raw=true)
+![Test](https://github.com/AlephVenXm/Main/blob/test.png?raw=true)
 
 For example:
 
