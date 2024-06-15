@@ -46,6 +46,6 @@ mdl.compile(
 
 This model is used in playground notebook as example
 You can easily change it however you want
-As example: try changing relu to gelu, changing leaky_relu to softmax and etc.
+As example: try changing relu to gelu, changing leaky_relu to softmax, Adam to RMSprop or Adagrad and etc.
 
 >> Link to notebook ---> https://colab.research.google.com/drive/1Bpgnyy2vVwV6_M8mmCYfOCymYeixkc-x?usp=sharing
