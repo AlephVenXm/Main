@@ -35,9 +35,13 @@ mdl = Sequential([
 ])
 
 mdl.compile(
+
     optimizer=ks.optimizers.Adam(),
+    
     loss=ks.losses.MeanSquaredError(),
+    
     metrics=["accuracy"]
+    
 )
 
 This model is used in playground notebook as example
