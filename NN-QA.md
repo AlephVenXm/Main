@@ -25,6 +25,6 @@ For example: make an array with arrays which will contain questions and answers 
 
 Do not forget to change shape of input and output then...
 
-Also if you know how GPT works even than me: add attention and embedding layers to mdl
+Also if you know how GPT works better than me: add attention and embedding layers to mdl
 
 >> Link: https://colab.research.google.com/drive/1DjrMpJfaNuqOcqGRS75bI2OHkRGBhT6r?usp=sharing
