@@ -26,6 +26,6 @@
 
   9. Lua
 
-  I'm studying mostly by myself
+I'm studying mostly by myself
 
-  Currently I'm studying Generative Artificial Intelligence (GAI)
+I'm studying everything about Artificial Intelligence and robots (their construction, SoCs and etc.)
