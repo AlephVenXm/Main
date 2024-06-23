@@ -4,7 +4,7 @@
 
 Train data for neural net
 
-![Train data](https://github.com/AlephVenXm/Main/blob/main/data.png)
+![Train data](https://github.com/AlephVenXm/Main/blob/main/NN-Tests/NN-QA_data.png)
 
 Result
 
