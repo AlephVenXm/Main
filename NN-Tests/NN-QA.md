@@ -12,7 +12,7 @@ Result
 
 Another test... yea
 
-![Another test... yea](https://github.com/AlephVenXm/Main/blob/main/test_ab.png)
+![Another test... yea](https://github.com/AlephVenXm/Main/blob/main/NN-Tests/NN-QA_test_ab.png)
 
 If it predicts non sense answers know: gradients and neural nets are random by their conception...
 
