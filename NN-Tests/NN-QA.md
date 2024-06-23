@@ -8,7 +8,7 @@ Train data for neural net
 
 Result
 
-![Result](https://github.com/AlephVenXm/Main/blob/main/test_aa.png)
+![Result](https://github.com/AlephVenXm/Main/blob/main/NN-Tests/NN-QA_test_aa.png)
 
 Another test... yea
 
