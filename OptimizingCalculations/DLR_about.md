@@ -4,6 +4,10 @@ Made dynamic learning rate for optimizers
 
 Trying to figure out how to make it more stable
 
+The thing it does ---> changes dynamically learning rate based on loss of model and size of loss
+
+Optimizer with dynamic learning rate descents to true values faster than same with static rate
+
 ```ruby
 import keras
 import tensorflow as tf
