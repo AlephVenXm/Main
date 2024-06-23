@@ -48,4 +48,4 @@ Plotting loss statistic of neural net
 plt.plot(range(EPOCHS), stats.history["loss"], color="red")
 ```
 
-![img](https://github.com/AlephVenXm/Main/blob/main/optimizing.png)
+![img](https://github.com/AlephVenXm/Main/blob/main/OptimizingCalculations/DLR_graph.png)
