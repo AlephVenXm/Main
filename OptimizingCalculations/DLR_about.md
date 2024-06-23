@@ -6,7 +6,7 @@ Trying to figure out how to make it more stable
 
 The thing it does ---> changes dynamically learning rate based on loss of model and size of loss
 
-Optimizer with dynamic learning rate descents to true values faster than same with static rate
+Optimizer with dynamic learning rate makes bigger descent with each step then same with static rate
 
 ```ruby
 import keras
