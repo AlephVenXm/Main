@@ -2,7 +2,7 @@
 
 In this playground you can easily test different models to work with images
 
-![Test](https://github.com/AlephVenXm/Main/blob/main/test.png)
+![Test](https://github.com/AlephVenXm/Main/blob/main/NN-Tests/NN-Circles_test_aa.png)
 
 For example:
 
