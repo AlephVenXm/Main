@@ -49,3 +49,5 @@ plt.plot(range(EPOCHS), stats.history["loss"], color="red")
 ```
 
 ![img](https://github.com/AlephVenXm/Main/blob/main/OptimizingCalculations/DLR_graph.png)
+
+As you can see it "jumps"...
