@@ -4,8 +4,6 @@
 
 >> ABOUT:
 
-  I'm 16 years old, from Russia
-
   I used/know where they'll be better/use:
 
   1. JavaScript/HTML/CSS
@@ -27,5 +25,3 @@
   9. Lua
 
 I'm studying mostly by myself
-
-I'm studying everything about Artificial Intelligence and robots (their construction, SoCs and etc.)
