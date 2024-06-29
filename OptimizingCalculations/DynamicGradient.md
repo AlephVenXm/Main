@@ -1,5 +1,8 @@
 >> Idea of DynamicLearningRate in DynamicGradient optimizer
 
+DynamicGradient starts with 0.0 learning rate!
+Also, higher loss -> higher beta, lower loss -> higher alpha
+
 ```ruby
 class DynamicGradient(ks.optimizers.Optimizer):
     def __init__(self, alpha=10e2, beta=10e3, learning_rate=0.0, name="DynamicGradient", **kwargs):
