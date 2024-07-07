@@ -18,7 +18,7 @@ class AdaNN(tf.Module):
         self.beta.assign_add(-d_beta)
 ```
 
-DynamicGradient ---> main net
+DynamicGradient ---> main net optimizer
 
 ```ruby
 class DynamicGradient(ks.optimizers.Optimizer):
