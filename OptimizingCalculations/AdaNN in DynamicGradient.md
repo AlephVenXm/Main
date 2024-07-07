@@ -36,4 +36,6 @@ class DynamicGradient(ks.optimizers.Optimizer):
         variable.assign_add(-increment)
 ```
 
+Tested it against Adam optimizer in various tasks. Works a lot faster on better than adam if starting params configured properly
+
 p.s. still needs a little bit of adjustments to make it fully independent from starting alpha and beta
