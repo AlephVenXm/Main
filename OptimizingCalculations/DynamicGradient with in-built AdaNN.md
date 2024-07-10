@@ -28,6 +28,8 @@ class DynamicGradient(ks.optimizers.Optimizer):
         variable.assign_add(-increment)
 ```
 
+p.s. still looking for better optimization of alpha and beta params...
+
 ![graph](https://github.com/AlephVenXm/Main/blob/main/OptimizingCalculations/DynamicGradient%20with%20in-built%20AdaNN%20sine%20function%20test.png)
 
 ![gif](https://github.com/AlephVenXm/Main/blob/main/OptimizingCalculations/test_sine.gif)
