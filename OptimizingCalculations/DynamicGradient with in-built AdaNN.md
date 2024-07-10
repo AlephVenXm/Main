@@ -25,3 +25,5 @@ class DynamicGradient(ks.optimizers.Optimizer):
 ```
 
 ![graph](https://github.com/AlephVenXm/Main/blob/main/OptimizingCalculations/DynamicGradient%20with%20in-built%20AdaNN%20sine%20function%20test.png)
+
+![gif](https://github.com/AlephVenXm/Main/blob/main/OptimizingCalculations/test_sine.gif)
