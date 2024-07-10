@@ -1,5 +1,9 @@
 >> Code of DynamicGradient optimizer with in-built Adaptive Neural Net and test
 
+note: this optimizer doesnt use momentums, velocities, epsilons, rhos, average gradients and etc.
+
+it also starts from 0.0 learning rate
+
 ```ruby
 class DynamicGradient(ks.optimizers.Optimizer):
     def __init__(self, alpha=10e2, beta=10e3, learning_rate=0.0, name="DynamicGradient", **kwargs):
