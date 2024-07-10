@@ -1,4 +1,4 @@
->> Code of DynamicGradient with in-built Adaptive Neural Net and test
+>> Code of DynamicGradient optimizer with in-built Adaptive Neural Net and test
 
 ```ruby
 class DynamicGradient(ks.optimizers.Optimizer):
