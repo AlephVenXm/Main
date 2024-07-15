@@ -47,12 +47,12 @@ class Transformer():
     def decoder_layer(self): #decoder layer
         return self.batch_normalization(self.regularization_lstm(self.ffn(self.attn(self.encoder_layer(), self.attn(self.output_k_v_embedded, self.output_q_embedded)))))
     def struct(self):
-        #4 layer of encoder (adjustable)
+        #4 layers of encoder (adjustable)
         encoder = ks.layers.Add()([self.encoder_layer(),
                                    self.encoder_layer(),
                                    self.encoder_layer(),
                                    self.encoder_layer(),])
-        #4 layer of decoder (adjustable)
+        #4 layers of decoder (adjustable)
         decoder = ks.layers.Add()([self.decoder_layer(),
                                    self.decoder_layer(),
                                    self.decoder_layer(),
