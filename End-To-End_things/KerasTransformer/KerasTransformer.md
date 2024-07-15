@@ -23,7 +23,7 @@ class Transformer():
         self.output_k_v_embedded = self.embedding(self.output_k_v)
         self.output_q_embedded = self.embedding(self.output_q)
     def regularization_lstm(self, layer): #lstm
-        return ks.layers.LSTM(4, activation="gelu", dropout=0.4, kernel_initializer="random_normal", bias_initializer="zeros")(layer)
+        return ks.layers.LSTM(4, activation="leaky_relu", dropout=0.4, kernel_initializer="random_normal", bias_initializer="zeros")(layer)
     def regularization_dropout(self, layer): #dropout
         return ks.layers.Dropout(0.4)(layer)
     def batch_normalization(self, layer): #batch norm
@@ -68,7 +68,7 @@ class Transformer():
 Model architecture
 
 ```ruby
-ks.utils.plot_model(mdl, "arch.png", show_layer_activations=True)
+ks.utils.plot_model(mdl, "arch_mdl.png", show_layer_activations=True)
 ```
 
-![architecture]()
+![architecture](https://github.com/AlephVenXm/Main/blob/main/End-To-End_things/KerasTransformer/arch_mdl.png)
