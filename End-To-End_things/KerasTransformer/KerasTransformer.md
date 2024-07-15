@@ -50,7 +50,7 @@ class Transformer():
                                    self.decoder_layer(),])
         linear = ks.layers.Dense(96, activation="linear")(decoder)
         #output probability of next token
-        output = ks.layers.Dense(4, activation="softmax")(linear)
+        output = ks.layers.Dense(self.max_query_length, activation="softmax")(linear)
         transformer = ks.Model([self.input_k_v, self.input_q, self.output_k_v, self.output_q], output)
         return transformer
 ```
