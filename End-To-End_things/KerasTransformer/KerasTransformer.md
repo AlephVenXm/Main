@@ -61,4 +61,4 @@ Model architecture
 ks.utils.plot_model(mdl, "arch_mdl.png", show_layer_activations=True)
 ```
 
-![architecture](https://github.com/AlephVenXm/Main/blob/main/End-To-End_things/KerasTransformer/arch_mdl.png)
+![architecture](https://github.com/AlephVenXm/Main/blob/main/End-To-End_things/KerasTransformer/transformer_architecture.png)
