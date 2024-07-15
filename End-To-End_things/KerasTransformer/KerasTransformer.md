@@ -9,7 +9,7 @@ class Transformer():
         #hyper params
         self.voc_size = hparams["voc_size"]
         self.max_query_length = hparams["max_query_length"]
-        ... #?
+        self.attn_heads = hparams["attn_heads"]
         #input
         self.input_k_v = ks.Input(shape=(2,)) #key-value pairs
         self.input_q = ks.Input(shape=(self.max_query_length,)) #query
@@ -23,22 +23,22 @@ class Transformer():
         self.output_k_v_embedded = self.embedding(self.output_k_v)
         self.output_q_embedded = self.embedding(self.output_q)
     def regularization_lstm(self, layer): #lstm
-        return ks.layers.LSTM(4, activation="leaky_relu", dropout=0.4, kernel_initializer="random_normal", bias_initializer="zeros")(layer)
+        return ks.layers.LSTM(self.attn_heads, activation="leaky_relu", dropout=0.4, kernel_initializer="random_normal", bias_initializer="zeros")(layer)
     def regularization_dropout(self, layer): #dropout
         return ks.layers.Dropout(0.4)(layer)
     def batch_normalization(self, layer): #batch norm
         return ks.layers.BatchNormalization(epsilon=10e-5, beta_initializer="zeros")(layer)
     def embedding(self, layer): #positional embedding
-        return ks.layers.Embedding(self.voc_size, 4)(layer)
+        return ks.layers.Embedding(self.voc_size, self.attn_heads)(layer)
     def attn(self, input_k_v, input_q): #attention
-        attn = ks.layers.MultiHeadAttention(2, 4)(input_q, input_k_v)
+        attn = ks.layers.MultiHeadAttention(2, self.attn_heads)(input_q, input_k_v)
         attn_norm = ks.layers.LayerNormalization(epsilon=10e-7)(attn)
         attn_block = ks.layers.Add()([attn, attn_norm])
         return attn_block
     def ffn(self, layer): #feed-forward net
         ffn = ks.layers.Dense(24, activation="gelu", kernel_initializer="random_normal")(layer)
         ffn = ks.layers.Dense(24, activation="gelu", kernel_initializer="random_normal")(ffn)
-        ffn = ks.layers.Dense(4, activation="gelu")(ffn)
+        ffn = ks.layers.Dense(self.attn_heads, activation="gelu")(ffn)
         ffn_norm = ks.layers.LayerNormalization(epsilon=10e-7)(ffn)
         ffn_block = ks.layers.Add()([ffn, ffn_norm])
         return ffn_block
