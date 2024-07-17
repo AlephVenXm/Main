@@ -26,14 +26,14 @@ class Transformer():
         return ks.layers.Embedding(self.voc_size, self.key_dim)(layer)
     def attn(self, input_k_v, input_q): #attention
         attn = ks.layers.MultiHeadAttention(2, self.key_dim)(input_q, input_k_v)
-        attn_norm = ks.layers.LayerNormalization()(attn)
+        attn_norm = ks.layers.LayerNormalization(epsilon=10e-4)(attn)
         attn_block = ks.layers.Add()([attn, attn_norm])
         return attn_block
     def ffn(self, layer): #feed-forward net
         ffn = ks.layers.Dense(24, activation="gelu", kernel_initializer="random_normal")(layer)
         ffn = ks.layers.Dense(24, activation="gelu", kernel_initializer="random_normal")(ffn)
         ffn = ks.layers.Dense(self.key_dim, activation="gelu")(ffn)
-        ffn_norm = ks.layers.LayerNormalization()(ffn)
+        ffn_norm = ks.layers.LayerNormalization(epsilon=10e-4)(ffn)
         ffn_block = ks.layers.Add()([ffn, ffn_norm])
         return ffn_block
     def encoder_layer(self): #encoder layer
