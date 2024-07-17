@@ -40,14 +40,9 @@ class Transformer():
         return self.ffn(self.attn(self.input_k_v_embedded, self.input_q_embedded))
     def decoder_layer(self): #decoder layer
         return self.ffn(self.attn(self.encoder_layer(), self.attn(self.output_k_v_embedded, self.output_q_embedded)))
-    def struct(self):
+    def struct(self, layers=6):
         #6 layers of decoder (adjustable)
-        decoder = ks.layers.Add()([self.decoder_layer(),
-                                   self.decoder_layer(),
-                                   self.decoder_layer(),
-                                   self.decoder_layer(),
-                                   self.decoder_layer(),
-                                   self.decoder_layer(),])
+        decoder = ks.layers.Add()([self.decoder_layer() for layer in range(layers)])
         linear = ks.layers.Dense(96, activation="linear")(decoder)
         #output probability of next token
         output = ks.layers.Dense(self.max_query_length, activation="softmax")(linear)
