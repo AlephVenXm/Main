@@ -21,6 +21,6 @@ EPOCH: 8 LOSS: 0.533484
 EPOCH: 9 LOSS: 0.471913
 ```
 
-![img](https://github.com/AlephVenXm/Main/blob/main/TrainingAlgorithms/REvolT_On_C%2B%2B/REvolT.png)
+![img](https://github.com/AlephVenXm/Main/blob/main/TrainingAlgorithms/REvolT_On_C%2B%2B/REvolT_.png)
 
 p.s. I think this algorithm is suitable for any model, for example, reinforcement learning agents, transformer models, diffusion models and etc. with a bit of correction
