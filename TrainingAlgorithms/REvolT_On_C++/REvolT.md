@@ -1,4 +1,4 @@
-## This algorithm uses linear model to train it with evolutionary tree method
+# This algorithm uses linear model to train it with evolutionary tree
 
 Test run stdout:
 
