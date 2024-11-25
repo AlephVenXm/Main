@@ -1,3 +1,5 @@
+Experiment I did while learning about decision trees and random forests
+
 # This algorithm uses linear model to train it with evolutionary tree
 
 Test run stdout:
@@ -20,3 +22,5 @@ EPOCH: 9 LOSS: 0.471913
 ```
 
 ![img](https://github.com/AlephVenXm/Main/blob/main/TrainingAlgorithms/REvolT_On_C%2B%2B/REvolT.png)
+
+p.s. I think this algorithm is suitable for any model, for example, reinforcement learning agents, transformer models, diffusion models and etc. with a bit of correction
