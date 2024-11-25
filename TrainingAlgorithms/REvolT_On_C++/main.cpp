@@ -6,6 +6,7 @@
 #include <algorithm>
 #include <random>
 
+// Hyper parameters
 namespace HParams {
 	// Optimizer params
 	const double learning_rate = 3e-2;
@@ -29,6 +30,7 @@ namespace HParams {
 using namespace HParams;
 using namespace std;
 
+// 2d matrix class
 template<size_t row, size_t col>
 class Matrix {
 private:
@@ -38,6 +40,7 @@ public:
 
 	vector<double>& operator[](size_t idx) { return var[idx]; }
 
+	// Dot product of two matrixes
 	template<size_t col_x>
 	Matrix<row, col_x> dot(Matrix<col, col_x> x) {
 		Matrix<row, col_x> result;
@@ -48,6 +51,7 @@ public:
 		return result;
 	}
 
+	// Transpose matrix
 	Matrix<col, row> transpose() {
 		Matrix<col, row> result;
 		for (size_t i = 0; i < col; ++i)
@@ -56,6 +60,7 @@ public:
 		return result;
 	}
 
+	// Flatten matrix to single vector
 	vector<double> flatten() {
 		vector<double> result(row*col, 0.0);
 		for (size_t i = 0; i < row; ++i)
@@ -64,6 +69,7 @@ public:
 		return result;
 	}
 
+	// Find sum of 2d matrix values
 	double sum() {
 		double result = 0.0;
 		for (size_t i = 0; i < row; ++i)
@@ -159,11 +165,13 @@ public:
 	}
 };
 
+// Neurons (aka Dense, Linear)
 template<size_t i_f, size_t o_f>
 class Neurons {
 private:
 	double uniform(double min = 0, double max = 1, long bound = 1e5L) { return min + (max - min) * (rand() % bound) / bound; }
 
+	// Initialize weights with normal distribution
 	Matrix<i_f, o_f> init() {
 		Matrix<i_f, o_f> weights;
 		for (size_t i = 0; i < i_f; ++i)
@@ -175,11 +183,13 @@ private:
 	Matrix<i_f, o_f> weights = init();
 	Matrix<o_f, 1> biases;
 public:
+	// Update params of layer
 	void update(Matrix<i_f, o_f> w, Matrix<o_f, 1> b) {
 		weights = weights - w;
 		biases = biases - b;
 	}
 
+	// Forward pass
 	template<size_t samples>
 	Matrix<samples, o_f> forward(Matrix<samples, i_f> x) { return x.dot<o_f>(weights) + biases.flatten(); }
 
@@ -188,18 +198,23 @@ public:
 	Matrix<o_f, 1> get_biases() { return biases; }
 };
 
+// MSE loss class
 class MeanSquaredError {
 public:
+	// Compute MSE loss
 	template<size_t samples, size_t o_f>
 	double mse(Matrix<samples, o_f> target, Matrix<samples, o_f> predict) { return ((target - predict) ^ 2.0).sum() / samples; }
 
+	// MSE gradients for weights
 	template<size_t samples, size_t i_f, size_t o_f>
 	Matrix<i_f, o_f> grad_w(Matrix<samples, o_f> error, Matrix<samples, i_f> input) { return input.transpose().dot<o_f>(error) * (2.0 / samples); }
 
+	// MSE gradients for bias
 	template<size_t samples, size_t o_f>
 	double grad_b(Matrix<samples, o_f> error) { return error.sum() * (2.0 / samples); }
 };
 
+// AdamW optimizer
 template<size_t i_f, size_t h_f, size_t o_f>
 class AdamW {
 private:
@@ -215,6 +230,7 @@ private:
 	Matrix<h_f, o_f> velocities_o_w;
 	Matrix<o_f, 1> velocities_o_b;
 public:
+	// Optimize gradients of hidden layers weights
 	Matrix<i_f, h_f> optimize_h_w(Matrix<i_f, h_f> grad, Matrix<i_f, h_f> w, double t) {
 		moments_h_w = (moments_h_w * beta_1) + (grad * (1.0 - beta_1));
 		velocities_h_w = (velocities_h_w * beta_2) + ((grad ^ 2.0) * (1.0 - beta_2));
@@ -223,6 +239,7 @@ public:
 		return (m_hat * learning_rate) / ((v_hat ^ 0.5) + epsilon) + (w * weight_decay);
 	}
 
+	// Optimize gradients of hidden layers biases
 	Matrix<h_f, 1> optimize_h_b(double grad, Matrix<h_f, 1> b, double t) {
 		moments_h_b = (moments_h_b * beta_1) + (grad * (1.0 - beta_1));
 		velocities_h_b = (velocities_h_b * beta_2) + (pow(grad, 2.0) * (1.0 - beta_2));
@@ -231,6 +248,7 @@ public:
 		return (m_hat * learning_rate) / ((v_hat ^ 0.5) + epsilon) + (b * weight_decay);
 	}
 
+	// Optimize gradients of output layers weights
 	Matrix<h_f, o_f> optimize_o_w(Matrix<h_f, o_f> grad, Matrix<h_f, o_f> w, double t) {
 		moments_o_w = (moments_o_w * beta_1) + (grad * (1.0 - beta_1));
 		velocities_o_w = (velocities_o_w * beta_2) + ((grad ^ 2.0) * (1.0 - beta_2));
@@ -239,6 +257,7 @@ public:
 		return (m_hat * learning_rate) / ((v_hat ^ 0.5) + epsilon) + (w * weight_decay);
 	}
 
+	// Optimize gradients of output layers biases
 	Matrix<o_f, 1> optimize_o_b(double grad, Matrix<o_f, 1> b, double t) {
 		moments_o_b = (moments_o_b * beta_1) + (grad * (1.0 - beta_1));
 		velocities_o_b = (velocities_o_b * beta_2) + (pow(grad, 2.0) * (1.0 - beta_2));
@@ -248,14 +267,16 @@ public:
 	}
 };
 
+// Deep Network class
 template<size_t i_f, size_t h_f, size_t o_f>
 class Model {
 private:
-	Neurons<i_f, h_f> hidden;
-	Neurons<h_f, o_f> output;
-	MeanSquaredError crit;
-	AdamW<i_f, h_f, o_f> optim;
+	Neurons<i_f, h_f> hidden; // Hidden layer
+	Neurons<h_f, o_f> output; // Output layer
+	MeanSquaredError crit; // Loss function
+	AdamW<i_f, h_f, o_f> optim; // Optimizer
 
+	// Select batch of size batch_size
 	template<size_t samples, size_t batch_size, size_t f>
 	Matrix<batch_size, f> select_batch(Matrix<samples, f> a, size_t b) {
 		Matrix<batch_size, f> batch;
@@ -266,9 +287,11 @@ private:
 	}
 
 public:
+	// Forward through all layers of model
 	template<size_t samples>
 	Matrix<samples, o_f> forward(Matrix<samples, i_f> x) { return output.forward<samples>(hidden.forward<samples>(x)); }
 
+	// Train loop
 	template<size_t samples, size_t batch_size>
 	void train(Matrix<samples, i_f> x, Matrix<samples, o_f> y, size_t epochs, bool verbose = true) {
 		for (double epoch = 0.0; epoch < epochs; ++epoch) {
@@ -301,6 +324,7 @@ public:
 		}
 	}
 
+	// Copy models params
 	void copy(Model<i_f, h_f, o_f>& model) {
 		hidden = model.hidden;
 		output = model.output;
@@ -308,6 +332,7 @@ public:
 	}
 };
 
+// Random Evolutionary Tree algorithm
 template<size_t i_f, size_t h_f, size_t o_f, size_t samples, size_t batch_size>
 class REvolT {
 private:
@@ -316,6 +341,7 @@ private:
 	vector<Model<i_f, h_f, o_f>> models;
 	vector<double> losses;
 
+	// Split data on two random batches
 	template<size_t samples>
 	tuple<Matrix<samples / 2, i_f>, Matrix<samples / 2, i_f>, Matrix<samples / 2, o_f>, Matrix<samples / 2, o_f>> random_split(Matrix<samples, i_f> x, Matrix<samples, o_f> y) {
 		vector<size_t> idx;
@@ -343,6 +369,8 @@ private:
 	}
 public:
 	REvolT(Model<i_f, h_f, o_f> mdl) { model = mdl; }
+
+	// Make single tree
 	void make_tree(Model<i_f, h_f, o_f> model, double loss, size_t max_depth, Matrix<samples, i_f> x, Matrix<samples, o_f> y, size_t depth = 0, bool end = false) {
 		if (end) {
 			models.push_back(model);
@@ -368,6 +396,7 @@ public:
 		}
 	}
 
+	// Run algorithm
 	Model<i_f, h_f, o_f> run(Matrix<samples, i_f> x, Matrix<samples, o_f> y, size_t max_depth, bool verbose = true) {
 		double loss = crit.mse<samples, o_f>(y, model.forward<samples>(x));
 		make_tree(model, loss, max_depth, x, y);
@@ -379,6 +408,7 @@ public:
 	}
 };
 
+// Read data from .csv to pair of 2d matrixes
 template<size_t row, size_t col>
 pair<Matrix<row, col - 1>, Matrix<row, 1>> read_csv(string path) {
 	ifstream file(path);
