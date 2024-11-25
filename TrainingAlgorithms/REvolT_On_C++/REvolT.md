@@ -1,6 +1,6 @@
 Experiment I did while learning about decision trees and random forests
 
-# This algorithm uses linear model to train it with evolutionary tree
+# This algorithm uses deep network model with AdamW optimizer to train it with evolutionary tree
 
 Test run stdout:
 
